@@ -18,4 +18,9 @@ public class UserService {
 
         return new UserResponseDto(savedUser.getUsername(), savedUser.getEmail());
     }
+
+    public UserResponseDto findById(Long userId) {
+        User user = userRepository.findByUserIdOrElseThrow(userId);
+        return new UserResponseDto(user.getUsername(), user.getEmail());
+    }
 }
