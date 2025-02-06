@@ -1,18 +1,18 @@
-package com.todo.entity;
+package com.todo.dto;
 
 import lombok.Getter;
 
 @Getter
 public class TodoRequestDto {
 
-    private final String username;
+    private final Long userId;
 
     private final String title;
 
     private final String contents;
 
-    public TodoRequestDto(String username, String title, String contents) {
-        this.username = username;
+    public TodoRequestDto(Long userId, String title, String contents) {
+        this.userId = userId;
         this.title = title;
         this.contents = contents;
     }

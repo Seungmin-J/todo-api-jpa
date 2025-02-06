@@ -1,5 +1,6 @@
-package com.todo.entity;
+package com.todo.dto;
 
+import com.todo.entity.Todo;
 import lombok.Getter;
 
 @Getter
@@ -21,6 +22,6 @@ public class TodoResponseDto {
     }
 
     public static TodoResponseDto toDto(Todo todo) {
-        return new TodoResponseDto(todo.getId(), todo.getTitle(), todo.getUsername(), todo.getContents());
+        return new TodoResponseDto(todo.getId(), todo.getTitle(), todo.getUser().getUsername(), todo.getContents());
     }
 }

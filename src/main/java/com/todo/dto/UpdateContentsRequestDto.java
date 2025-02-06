@@ -3,11 +3,11 @@ package com.todo.dto;
 import lombok.Getter;
 
 @Getter
-public class TodoUpdateRequestDto {
+public class UpdateContentsRequestDto {
 
     private final String contents;
 
-    public TodoUpdateRequestDto(String contents) {
+    public UpdateContentsRequestDto(String contents) {
         this.contents = contents;
     }
 }
