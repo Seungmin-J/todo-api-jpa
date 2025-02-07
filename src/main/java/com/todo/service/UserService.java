@@ -44,4 +44,10 @@ public class UserService {
 
         return new UserResponseDto(user.getUsername(), user.getEmail());
     }
+
+    @Transactional
+    public void deleteUser(Long id, String password) {
+        User user = userRepository.findByUserIdOrElseThrow(id);
+        userRepository.delete(user);
+    }
 }
