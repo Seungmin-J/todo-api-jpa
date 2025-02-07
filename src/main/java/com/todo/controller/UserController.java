@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -22,9 +24,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
-        UserResponseDto userResponseDto = userService.findById(id);
+    public ResponseEntity<UserResponseDto> findByUserId(@PathVariable Long id) {
+        UserResponseDto userResponseDto = userService.findByUserId(id);
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponseDto>> findAll() {
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
 }
