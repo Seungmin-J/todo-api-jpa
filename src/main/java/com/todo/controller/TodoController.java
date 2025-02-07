@@ -7,6 +7,7 @@ import com.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping
-    public ResponseEntity<TodoResponseDto> save(@RequestBody TodoRequestDto requestDto) {
+    public ResponseEntity<TodoResponseDto> save(@Validated @RequestBody TodoRequestDto requestDto) {
         TodoResponseDto responseDto = todoService.save(requestDto.getUserId(), requestDto.getTitle(), requestDto.getContents());
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }

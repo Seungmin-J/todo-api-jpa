@@ -1,6 +1,8 @@
 package com.todo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +22,8 @@ public class User extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotBlank(message = "비밀번호를 입력해주세요")
+    @Size(min = 6)
     @Column(nullable = false)
     private String password;
 
