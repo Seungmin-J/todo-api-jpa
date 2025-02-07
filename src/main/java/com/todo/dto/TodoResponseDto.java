@@ -21,7 +21,7 @@ public class TodoResponseDto {
         this.contents = contents;
     }
 
-    public static TodoResponseDto toDto(Todo todo) {
+    public static TodoResponseDto toTOdoDto(Todo todo) {
         return new TodoResponseDto(todo.getId(), todo.getTitle(), todo.getUser().getUsername(), todo.getContents());
     }
 }
