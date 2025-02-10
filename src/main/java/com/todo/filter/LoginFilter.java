@@ -1,6 +1,5 @@
 package com.todo.filter;
 
-
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginFilter implements Filter {
 
-    private static final String[] WHITE_LIST = {"/users/signup", "/users/login"};
+    private static final String[] WHITE_LIST = {"/members/signup", "/members/login"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {

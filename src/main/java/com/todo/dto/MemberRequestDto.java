@@ -1,17 +1,16 @@
 package com.todo.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
-public class UserRequestDto {
+public class MemberRequestDto {
 
     @Size(min = 2, max = 10)
     @NotBlank(message = "사용자 이름을 입력해주세요")
-    private final String username;
+    private final String memberName;
 
     @NotBlank(message = "이메일을 입력해주세요")
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = "이메일 형식이 올바르지 않습니다")
@@ -21,8 +20,8 @@ public class UserRequestDto {
     @Size(min = 6)
     private final String password;
 
-    public UserRequestDto(String username, String email, String password) {
-        this.username = username;
+    public MemberRequestDto(String memberName, String email, String password) {
+        this.memberName = memberName;
         this.email = email;
         this.password = password;
     }
