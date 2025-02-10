@@ -22,5 +22,12 @@ public class Comment extends BaseEntity{
     @JoinColumn(name = "todo_id")
     private Todo todo;
 
+    @Column(nullable = false)
+    private String contents;
 
+    public Comment(Member member, Todo todo, String contents) {
+        this.member = member;
+        this.todo = todo;
+        this.contents = contents;
+    }
 }

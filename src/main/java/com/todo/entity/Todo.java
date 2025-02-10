@@ -3,6 +3,9 @@ package com.todo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "todo")
@@ -21,6 +24,10 @@ public class Todo extends BaseEntity{
 
     @Column(nullable = false)
     private String contents;
+
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
 
     public Todo() {}
 
