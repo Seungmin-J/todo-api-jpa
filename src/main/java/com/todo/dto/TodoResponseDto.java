@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class TodoResponseDto {
 
-    private final Long id;
+    private final Long todoId;
 
     private final String title;
 
@@ -14,8 +14,8 @@ public class TodoResponseDto {
 
     private final String contents;
 
-    public TodoResponseDto(Long id, String title, String memberName, String contents) {
-        this.id = id;
+    public TodoResponseDto(Long todoId, String title, String memberName, String contents) {
+        this.todoId = todoId;
         this.title = title;
         this.memberName = memberName;
         this.contents = contents;

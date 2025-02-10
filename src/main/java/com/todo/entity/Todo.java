@@ -28,7 +28,6 @@ public class Todo extends BaseEntity{
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-
     public Todo() {}
 
     public Todo(String title, String contents) {

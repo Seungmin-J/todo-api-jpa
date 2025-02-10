@@ -2,6 +2,7 @@ package com.todo.controller;
 
 import com.todo.dto.TodoRequestDto;
 import com.todo.dto.TodoResponseDto;
+import com.todo.dto.TodoResponseWithCommentsDto;
 import com.todo.dto.UpdateContentsRequestDto;
 import com.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class TodoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TodoResponseDto> findById(@PathVariable Long id) {
-        TodoResponseDto responseDto = todoService.findById(id);
+    public ResponseEntity<TodoResponseWithCommentsDto> findById(@PathVariable Long id) {
+        TodoResponseWithCommentsDto responseDto = todoService.findById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

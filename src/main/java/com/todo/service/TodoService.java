@@ -1,5 +1,6 @@
 package com.todo.service;
 
+import com.todo.dto.TodoResponseWithCommentsDto;
 import com.todo.entity.Todo;
 import com.todo.dto.TodoResponseDto;
 import com.todo.entity.Member;
@@ -33,13 +34,15 @@ public class TodoService {
                 savedTodo.getContents());
     }
 
-    public TodoResponseDto findById(Long id) {
+    public TodoResponseWithCommentsDto findById(Long id) {
         Todo todo = todoRepository.findByIdOrElseThrow(id);
-        return new TodoResponseDto(
-                todo.getTodoId(),
-                todo.getTitle(),
-                todo.getMember().getMemberName(),
-                todo.getContents());
+        TodoResponseWithCommentsDto todoDto = TodoResponseWithCommentsDto.toTodoDto(todo);
+        return new TodoResponseWithCommentsDto(
+                todoDto.getTodoId(),
+                todoDto.getTitle(),
+                todoDto.getMemberName(),
+                todoDto.getContents(),
+                todoDto.getComments());
     }
 
     public List<TodoResponseDto> findAll() {
