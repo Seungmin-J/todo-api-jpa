@@ -9,15 +9,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "user")
-public class User extends BaseEntity{
+@Table(name = "member")
+public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long memberId;
 
     @Column(nullable = false)
-    private String username;
+    private String memberName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -27,10 +27,10 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
-    public User() {}
+    public Member() {}
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    public Member(String memberName, String email, String password) {
+        this.memberName = memberName;
         this.email = email;
         this.password = password;
     }

@@ -1,5 +1,6 @@
 package com.todo.config;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.todo.filter.LoginFilter;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -19,4 +20,5 @@ public class WebConfig implements WebMvcConfigurer {
 
         return filterRegistrationBean;
     }
+
 }

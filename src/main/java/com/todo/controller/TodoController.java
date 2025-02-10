@@ -21,7 +21,7 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<TodoResponseDto> save(@Validated @RequestBody TodoRequestDto requestDto) {
-        TodoResponseDto responseDto = todoService.save(requestDto.getUserId(), requestDto.getTitle(), requestDto.getContents());
+        TodoResponseDto responseDto = todoService.save(requestDto.getMemberId(), requestDto.getTitle(), requestDto.getContents());
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 

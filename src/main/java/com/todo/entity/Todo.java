@@ -10,11 +10,11 @@ public class Todo extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long todoId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column(nullable = false)
     private String title;
@@ -33,7 +33,7 @@ public class Todo extends BaseEntity{
         this.contents = contents;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

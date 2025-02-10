@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class TodoRequestDto {
 
-    private final Long userId;
+    private final Long memberId;
 
     @NotBlank(message = "제목을 입력해주세요")
     @Size(max = 20)
@@ -16,8 +16,8 @@ public class TodoRequestDto {
     @NotBlank(message = "내용을 입력해주세요")
     private final String contents;
 
-    public TodoRequestDto(Long userId, String title, String contents) {
-        this.userId = userId;
+    public TodoRequestDto(Long memberId, String title, String contents) {
+        this.memberId = memberId;
         this.title = title;
         this.contents = contents;
     }

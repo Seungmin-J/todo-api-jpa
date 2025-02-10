@@ -10,18 +10,18 @@ public class TodoResponseDto {
 
     private final String title;
 
-    private final String username;
+    private final String memberName;
 
     private final String contents;
 
-    public TodoResponseDto(Long id, String title, String username, String contents) {
+    public TodoResponseDto(Long id, String title, String memberName, String contents) {
         this.id = id;
         this.title = title;
-        this.username = username;
+        this.memberName = memberName;
         this.contents = contents;
     }
 
-    public static TodoResponseDto toTOdoDto(Todo todo) {
-        return new TodoResponseDto(todo.getId(), todo.getTitle(), todo.getUser().getUsername(), todo.getContents());
+    public static TodoResponseDto toTodoDto(Todo todo) {
+        return new TodoResponseDto(todo.getTodoId(), todo.getTitle(), todo.getMember().getMemberName(), todo.getContents());
     }
 }
