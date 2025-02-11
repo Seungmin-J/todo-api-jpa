@@ -5,11 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "member")
+@EntityListeners(AuditingEntityListener.class)
 public class Member extends BaseEntity{
 
     @Id
@@ -35,4 +37,3 @@ public class Member extends BaseEntity{
         this.password = password;
     }
 }
-

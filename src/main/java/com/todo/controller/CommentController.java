@@ -1,8 +1,7 @@
 package com.todo.controller;
 
-import com.todo.dto.CommentRequestDto;
-import com.todo.dto.CommentResponseDto;
-import com.todo.dto.MemberResponseDto;
+import com.todo.dto.*;
+import com.todo.entity.Member;
 import com.todo.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ public class CommentController {
     public ResponseEntity<CommentResponseDto> save(
             @PathVariable Long todoId,
             @RequestBody CommentRequestDto requestDto,
-            @SessionAttribute(name = "member")MemberResponseDto member) {
+            @SessionAttribute(name = "member") Member member) {
 
         if (member == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다");
@@ -30,4 +29,27 @@ public class CommentController {
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
 
     }
+
+    @GetMapping("/comments/{commentId}")
+    public ResponseEntity<CommentResponseDto> findById(@PathVariable Long commentId) {
+        CommentResponseDto responseDto = commentService.findById(commentId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/comments/{commentId}")
+    public ResponseEntity<UpdateCommentResponseDto> update(
+            @PathVariable Long commentId,
+            @SessionAttribute(name = "member") Member member,
+            @RequestBody UpdateCommentRequestDto requestDto) {
+        UpdateCommentResponseDto updateCommentResponseDto = commentService.updateComment(commentId, member, requestDto.getContents());
+        return new ResponseEntity<>(updateCommentResponseDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> delete(@PathVariable Long commentId,
+                                       @SessionAttribute("member") Member member) {
+        commentService.deleteComment(commentId, member);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

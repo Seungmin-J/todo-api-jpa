@@ -31,7 +31,7 @@ public class TodoService {
                 savedTodo.getTodoId(),
                 savedTodo.getTitle(),
                 savedTodo.getMember().getMemberName(),
-                savedTodo.getContents());
+                savedTodo.getContents(), todo.getCreatedAt(), todo.getModifiedAt());
     }
 
     public TodoResponseWithCommentsDto findById(Long id) {
@@ -42,7 +42,9 @@ public class TodoService {
                 todoDto.getTitle(),
                 todoDto.getMemberName(),
                 todoDto.getContents(),
-                todoDto.getComments());
+                todoDto.getComments(),
+                todoDto.getCreatedAt(),
+                todoDto.getModifiedAt());
     }
 
     public List<TodoResponseDto> findAll() {

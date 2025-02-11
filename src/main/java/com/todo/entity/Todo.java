@@ -2,6 +2,7 @@ package com.todo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "todo")
+@EntityListeners(AuditingEntityListener.class)
 public class Todo extends BaseEntity{
 
     @Id

@@ -3,10 +3,12 @@ package com.todo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Entity
 @Table(name = "comment")
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 public class Comment extends BaseEntity{
 
@@ -28,6 +30,10 @@ public class Comment extends BaseEntity{
     public Comment(Member member, Todo todo, String contents) {
         this.member = member;
         this.todo = todo;
+        this.contents = contents;
+    }
+
+    public void setContents(String contents) {
         this.contents = contents;
     }
 }

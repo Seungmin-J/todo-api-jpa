@@ -1,6 +1,5 @@
 package com.todo.dto;
 
-import com.todo.entity.Member;
 import lombok.Getter;
 
 @Getter
@@ -18,7 +17,7 @@ public class MemberResponseDto {
         this.email = email;
     }
 
-    public static MemberResponseDto toUserDto(Member member) {
+    public static MemberResponseDto toUserDto(com.todo.entity.Member member) {
         return new MemberResponseDto(member.getMemberId(), member.getMemberName(), member.getEmail());
     }
 }

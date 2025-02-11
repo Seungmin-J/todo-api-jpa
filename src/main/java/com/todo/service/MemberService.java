@@ -24,14 +24,14 @@ public class MemberService {
 
     public MemberResponseDto save(String memberName, String email, String password) {
         String encoded = passwordEncoder.encode(password);
-        Member member = new Member(memberName, email, encoded);
-        Member savedMember = memberRepository.save(member);
+        com.todo.entity.Member member = new com.todo.entity.Member(memberName, email, encoded);
+        com.todo.entity.Member savedMember = memberRepository.save(member);
 
         return new MemberResponseDto(savedMember.getMemberId(), savedMember.getMemberName(), savedMember.getEmail());
     }
 
     public MemberResponseDto findByMemberId(Long memberId) {
-        Member member = memberRepository.findByMemberIdOrElseThrow(memberId);
+        com.todo.entity.Member member = memberRepository.findByMemberIdOrElseThrow(memberId);
         return new MemberResponseDto(member.getMemberId(), member.getMemberName(), member.getEmail());
     }
 
@@ -54,8 +54,8 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMember(Long id, String password) {
-        Member member = memberRepository.findByMemberIdOrElseThrow(id);
+    public void deleteMember(Long id) {
+        com.todo.entity.Member member = memberRepository.findByMemberIdOrElseThrow(id);
         memberRepository.delete(member);
     }
 
@@ -66,12 +66,8 @@ public class MemberService {
         if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다");
         }
-        System.out.println("requestDto.getPassword() = " + requestDto.getPassword());
-        System.out.println("member.getPassword() = " + member.getPassword());
 
-        MemberResponseDto memberResponseDto = new MemberResponseDto(member.getMemberId(), member.getMemberName(), member.getEmail());
-        session.setAttribute("member", memberResponseDto);
-
+        session.setAttribute("member", member);
         session.setAttribute("sessionKey", member.getMemberId());
     }
 }
