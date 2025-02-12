@@ -55,7 +55,8 @@ public class MemberService {
 
     @Transactional
     public void deleteMember(Long id) {
-        com.todo.entity.Member member = memberRepository.findByMemberIdOrElseThrow(id);
+
+        Member member = memberRepository.findByMemberIdOrElseThrow(id);
         memberRepository.delete(member);
     }
 

@@ -19,8 +19,6 @@ public class LoginFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
 
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-
         log.info("로그인 필터 로직 실행");
 
         if(!isWhiteList(requestURI)) {

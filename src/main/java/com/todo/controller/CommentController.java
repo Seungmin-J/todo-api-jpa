@@ -6,6 +6,7 @@ import com.todo.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,7 +19,7 @@ public class CommentController {
     @PostMapping("/todos/{todoId}/comments")
     public ResponseEntity<CommentResponseDto> save(
             @PathVariable Long todoId,
-            @RequestBody CommentRequestDto requestDto,
+            @Validated @RequestBody CommentRequestDto requestDto,
             @SessionAttribute(name = "member") Member member) {
 
         if (member == null) {
@@ -40,7 +41,7 @@ public class CommentController {
     public ResponseEntity<UpdateCommentResponseDto> update(
             @PathVariable Long commentId,
             @SessionAttribute(name = "member") Member member,
-            @RequestBody UpdateCommentRequestDto requestDto) {
+            @Validated @RequestBody UpdateCommentRequestDto requestDto) {
         UpdateCommentResponseDto updateCommentResponseDto = commentService.updateComment(commentId, member, requestDto.getContents());
         return new ResponseEntity<>(updateCommentResponseDto, HttpStatus.OK);
     }

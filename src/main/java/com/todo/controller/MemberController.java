@@ -48,7 +48,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequestDto requestDto, HttpSession session) {
+    public String login(@Validated @RequestBody LoginRequestDto requestDto, HttpSession session) {
         memberService.validateMember(requestDto, session);
         return "로그인 성공";
     }

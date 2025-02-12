@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/todos")
@@ -44,7 +43,7 @@ public class TodoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateContents(@PathVariable Long id, @RequestBody UpdateContentsRequestDto requestDto) {
+    public ResponseEntity<Void> updateContents(@PathVariable Long id, @Validated @RequestBody UpdateContentsRequestDto requestDto) {
         todoService.updateContents(id, requestDto.getContents());
         return new ResponseEntity<>(HttpStatus.OK);
     }
