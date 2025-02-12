@@ -7,6 +7,9 @@ import com.todo.entity.Member;
 import com.todo.repository.TodoRepository;
 import com.todo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,11 +50,9 @@ public class TodoService {
                 todoDto.getModifiedAt());
     }
 
-    public List<TodoResponseDto> findAll() {
-        return todoRepository.findAll()
-                .stream()
-                .map(TodoResponseDto::toTodoDto)
-                .toList();
+    public Page<TodoResponseDto> findAll(Pageable pageable) {
+        return todoRepository.findAll(pageable)
+                .map(TodoResponseDto::toTodoDto);
     }
 
     @Transactional

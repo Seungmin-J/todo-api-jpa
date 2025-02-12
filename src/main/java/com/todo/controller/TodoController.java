@@ -6,6 +6,10 @@ import com.todo.dto.TodoResponseWithCommentsDto;
 import com.todo.dto.UpdateContentsRequestDto;
 import com.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,9 +37,10 @@ public class TodoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TodoResponseDto>> findAll() {
-        List<TodoResponseDto> todoResponseDtoList = todoService.findAll();
-        return new ResponseEntity<>(todoResponseDtoList, HttpStatus.OK);
+    public ResponseEntity<Page<TodoResponseDto>> findAll(
+            @PageableDefault(size = 10, sort = "modifiedAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<TodoResponseDto> todoResponseDtoPage = todoService.findAll(pageable);
+        return new ResponseEntity<>(todoResponseDtoPage, HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
@@ -49,4 +54,5 @@ public class TodoController {
         todoService.deleteTodo(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
