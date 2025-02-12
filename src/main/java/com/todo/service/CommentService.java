@@ -33,10 +33,6 @@ public class CommentService {
         return new CommentResponseDto(savedComment);
     }
 
-    public Comment findComment(Long commentId) {
-        return commentRepository.findCommentByCommentId(commentId);
-    }
-
     public CommentResponseDto findById(Long commentId) {
         Comment comment = commentRepository.findCommentByCommentId(commentId);
         CommentResponseDto responseDto = CommentResponseDto.toDto(comment);
@@ -45,14 +41,10 @@ public class CommentService {
 
     @Transactional
     public UpdateCommentResponseDto updateComment(Long commentId, Member sessionMember, String contents) {
-        if (sessionMember == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다");
-        }
-
         Comment comment = commentRepository.findCommentByCommentId(commentId);
-        Member member = comment.getMember();
 
-        if (!sessionMember.getMemberId().equals(member.getMemberId())) {
+        // 댓글의 memberId 와 session 의 memberId 비교
+        if (!sessionMember.getMemberId().equals(comment.getMember().getMemberId())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "권한이 없습니다");
         }
         comment.setContents(contents);
@@ -68,12 +60,9 @@ public class CommentService {
 
     @Transactional
     public void deleteComment(Long commentId, Member sessionMember) {
-        if (sessionMember == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다");
-        }
-
         Comment comment = commentRepository.findCommentByCommentId(commentId);
 
+        // 댓글의 memberId 와 session의 memberId 비교
         if (!comment.getMember().getMemberId().equals(sessionMember.getMemberId())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "권한이 없습니다");
         }

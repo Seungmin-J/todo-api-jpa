@@ -1,6 +1,7 @@
 package com.todo.controller;
 
 import com.todo.dto.*;
+import com.todo.entity.Member;
 import com.todo.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,10 @@ public class MemberController {
         return new ResponseEntity<>(memberService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MemberResponseDto> updateMember(@PathVariable Long id, @Validated @RequestBody MemberRequestDto requestDto) {
-        MemberResponseDto memberResponseDto = memberService.updateMember(id, requestDto.getMemberName(), requestDto.getEmail(), requestDto.getPassword());
+    @PutMapping()
+    public ResponseEntity<MemberResponseDto> updateMember(@Validated @RequestBody MemberRequestDto requestDto,
+                                                          @SessionAttribute("member") Member member) {
+        MemberResponseDto memberResponseDto = memberService.updateMember(requestDto, member);
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
 
@@ -49,7 +51,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(@Validated @RequestBody LoginRequestDto requestDto, HttpSession session) {
-        memberService.validateMember(requestDto, session);
+        memberService.login(requestDto, session);
         return "로그인 성공";
     }
 

@@ -27,9 +27,13 @@ public class Member extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
+    // Member 는 Todo 를 여러 개 가질 수 있음 -> OneToMany
+    // mappedBy = "member" <- Todo 의 member 필드를 가리킴. 연관관계의 주인은 Todo
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todo> todos = new ArrayList<>();
 
+    // Member 는 Comment 를 여러 개 가질 수 있음 -> OneToMany
+    // mappedBy = "member" <- Comment 의 member 필드를 가리킴. 연관관계의 주인은 Comment
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 

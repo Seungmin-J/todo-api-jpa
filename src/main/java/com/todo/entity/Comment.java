@@ -16,12 +16,12 @@ public class Comment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)  // Member 는 Comment 를 여러 개 가질 수 있다 / Member 는 Todo 를 여러 개 가지지 못함 -> ManyToOne
+    @JoinColumn(name = "member_id")     // member 테이블의 member_id 를 참조함 (FK 설정)
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "todo_id")
+    @ManyToOne(fetch = FetchType.LAZY)  // Todo 는 Comment 를 여러 개 가질 수 있다 / Comment 는 Todo 를 여러 개 가지지 못함 -> ManyToOne
+    @JoinColumn(name = "todo_id")       // todo 테이블의 todo_id 를 참조함 (FK 설정)
     private Todo todo;
 
     @Column(nullable = false)

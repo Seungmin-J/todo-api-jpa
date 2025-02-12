@@ -8,14 +8,11 @@ import com.todo.repository.TodoRepository;
 import com.todo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +21,10 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public TodoResponseDto save(Long memberId, String title, String contents) {
         Todo todo = new Todo(title, contents);
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다"));
+        Member member = memberRepository.findByMemberIdOrElseThrow(memberId);
         todo.setMember(member);
         Todo savedTodo = todoRepository.save(todo);
 
@@ -37,6 +35,7 @@ public class TodoService {
                 savedTodo.getContents(), todo.getCreatedAt(), todo.getModifiedAt());
     }
 
+    // 일정 조회 시 일정에 달린 댓글도 함께 리턴
     public TodoResponseWithCommentsDto findById(Long id) {
         Todo todo = todoRepository.findByIdOrElseThrow(id);
         TodoResponseWithCommentsDto todoDto = TodoResponseWithCommentsDto.toTodoDto(todo);
@@ -50,11 +49,13 @@ public class TodoService {
                 todoDto.getModifiedAt());
     }
 
+    // Pageable 을 사용해 페이지와 페이지 크기 전달받아 페이징
     public Page<TodoResponseDto> findAll(Pageable pageable) {
         return todoRepository.findAll(pageable)
                 .map(TodoResponseDto::toTodoDto);
     }
 
+    // 세션에서 Member를 받아와 해당 일정의 작성자와 일치하는지 검증 후 update
     @Transactional
     public void updateContents(Long id, String contents, Member member) {
         Todo findTodo = todoRepository.findByIdOrElseThrow(id);

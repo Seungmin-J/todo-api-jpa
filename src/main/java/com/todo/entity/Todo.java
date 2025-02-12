@@ -17,6 +17,8 @@ public class Todo extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todoId;
 
+    // Member 는 Todo 를 여러 개 가질 수 있음 -> ManyToOne
+    // member_id FK 관리
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -27,6 +29,8 @@ public class Todo extends BaseEntity{
     @Column(nullable = false)
     private String contents;
 
+    // Todo 는 Comment 를 여러 개 가질 수 있음 -> OneToMany
+    // mappedBy = "todo" <- Comment 의 todo 필드를 가리킴. 연관관계의 주인은 Comment
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
