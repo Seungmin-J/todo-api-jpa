@@ -56,8 +56,13 @@ public class TodoService {
     }
 
     @Transactional
-    public void updateContents(Long id, String contents) {
+    public void updateContents(Long id, String contents, Member member) {
         Todo findTodo = todoRepository.findByIdOrElseThrow(id);
+
+        if (!member.getMemberId().equals(findTodo.getMember().getMemberId())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "권한이 없습니다");
+        }
+
         findTodo.updateContents(contents);
     }
 

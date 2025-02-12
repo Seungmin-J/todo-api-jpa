@@ -3,7 +3,8 @@ package com.todo.controller;
 import com.todo.dto.TodoRequestDto;
 import com.todo.dto.TodoResponseDto;
 import com.todo.dto.TodoResponseWithCommentsDto;
-import com.todo.dto.UpdateContentsRequestDto;
+import com.todo.dto.UpdateTodoContentsRequestDto;
+import com.todo.entity.Member;
 import com.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,9 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping
-    public ResponseEntity<TodoResponseDto> save(@Validated @RequestBody TodoRequestDto requestDto) {
-        TodoResponseDto responseDto = todoService.save(requestDto.getMemberId(), requestDto.getTitle(), requestDto.getContents());
+    public ResponseEntity<TodoResponseDto> save(@Validated @RequestBody TodoRequestDto requestDto,
+                                                @SessionAttribute(name = "member") Member member) {
+        TodoResponseDto responseDto = todoService.save(member.getMemberId(), requestDto.getTitle(), requestDto.getContents());
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
@@ -43,8 +45,10 @@ public class TodoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateContents(@PathVariable Long id, @Validated @RequestBody UpdateContentsRequestDto requestDto) {
-        todoService.updateContents(id, requestDto.getContents());
+    public ResponseEntity<Void> updateContents(@PathVariable Long id,
+                                               @Validated @RequestBody UpdateTodoContentsRequestDto requestDto,
+                                               @SessionAttribute(name = "member") Member member) {
+        todoService.updateContents(id, requestDto.getContents(), member);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
