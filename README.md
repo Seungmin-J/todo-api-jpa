@@ -1,14 +1,16 @@
 # Todo App
 할일을 작성하고 관리하는 앱<br>
 ## Introduction
-할일을 작성하고 관리하는 RESTful API입니다. 기본 CRUD 기능을 포함합니다
+할일을 작성하고 관리하는 REST API 입니다. 기본 CRUD 기능을 포함합니다
 </br>
 
 **추가사항**
 
-- 기존의 JDBC로 데이터베이스 액세스하던 방식에서 JPA를 사용하는 방식으로 변경되었습니다
-- Member Entity 와 Comment Entity 가 추가 되었습니다
-<br>
+- 기존의 JDBC 로 데이터베이스 액세스하던 방식에서 JPA 를 사용하는 방식으로 변경되었습니다
+- Member / Comment 에 대한 CRUD
+- 로그인/로그아웃 기능
+</br>
+
 ## Tech Stack
 - **Language**:  
   ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
